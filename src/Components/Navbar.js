@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export default function Navbar(props) {
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <nav className={`navbar navbar-expand-lg navbar-dark bg-${props.mode}`}>
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">{props.title}</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,10 +19,14 @@ export default function Navbar(props) {
                                 <a className="nav-link" href="/">{props.abouttext}</a>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
+                        {/* <form className="d-flex" role="search">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                            <button className="btn btn-danger" type="submit">Search</button>
+                        </form> */}
+                        <div className={`form-check form-switch text-${props.mode==='light'?'light':'dark'}`}>
+                            <input className="form-check-input" onClick={props.togglemode} type="checkbox" role="switch" id="flexSwitchCheckDefault" />
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Enable Dark Mode</label>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -30,4 +34,4 @@ export default function Navbar(props) {
     )
 }
 
-Navbar.protoTypes={title:PropTypes.string,abouttext:PropTypes.string}
+Navbar.protoTypes = { title: PropTypes.string, abouttext: PropTypes.string }
