@@ -6,14 +6,17 @@ export default function Textform(props) {
     {
         let newtext=text.toUpperCase();
         settext(newtext);
+        props.showAlert("Converted to Uppercase","success");
     };
     const handleloclick=()=>
     {
         let newtext=text.toLowerCase();
         settext(newtext);
+        props.showAlert("Converted to Lowercase","success");
     };
     const handlefield=()=>{
         settext("");
+        props.showAlert("Field Cleared","success");
     };
     const handlechange=(event)=>
     {
@@ -46,10 +49,10 @@ export default function Textform(props) {
     };
     return (
         <>
-        <div className='container'>
+        <div className='container' style={{color: props.mode==='light'?'black':'white'}}>
             <h2 className='my-3'>{props.heading}</h2>
             <div className="mb-3">
-                <textarea className="form-control" value={text} onChange={handlechange} id="exampleFormControlTextarea1" rows="9"></textarea>
+                <textarea className="form-control border border-dark-subtle" style={{backgroundColor: props.mode==='dark'?'#032352':'#F8F9FA',color: props.mode==='dark'?'white':'black'}} value={text} onChange={handlechange} id="exampleFormControlTextarea1" rows="9"></textarea>
             </div>
             <button type="button" className="btn btn-dark mx-2" onClick={handleclick}>Convert to Uppercase</button>
             <button type="button" className="btn btn-dark mx-2" onClick={handleloclick}>Convert to Lowercase</button>
@@ -70,7 +73,7 @@ export default function Textform(props) {
                     Preview :
                 </h2>
                 <p>
-                    {text}
+                    {text.length===0?'Enter something above to preview it here .':text}
                 </p>
             </p>
         </div>
