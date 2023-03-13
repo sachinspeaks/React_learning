@@ -24,6 +24,7 @@ export default function Textform(props) {
     };
     const handleCopy = () => {
         navigator.clipboard.writeText(text); 
+        document.getSelection().removeAllRanges();
         props.showAlert("Copied to Clipboard!", "success");
     };
     const handleExtraSpaces = () => {
@@ -46,6 +47,7 @@ export default function Textform(props) {
             }
         }
         settext(ctext);
+        props.showAlert("Cases Inversed","success");
     };
     return (
         <>
@@ -54,19 +56,19 @@ export default function Textform(props) {
             <div className="mb-3">
                 <textarea className="form-control border border-dark-subtle" style={{backgroundColor: props.mode==='dark'?'#032352':'#F8F9FA',color: props.mode==='dark'?'white':'black'}} value={text} onChange={handlechange} id="exampleFormControlTextarea1" rows="9"></textarea>
             </div>
-            <button type="button" className="btn btn-dark mx-2" onClick={handleclick}>Convert to Uppercase</button>
-            <button type="button" className="btn btn-dark mx-2" onClick={handleloclick}>Convert to Lowercase</button>
-            <button type="button" className="btn btn-dark mx-2" onClick={handlefield}>Clear Field</button>
-            <button type="button" className="btn btn-dark mx-2" onClick={handleicase}>Inverse Case</button>
-            <button type="button" className="btn btn-dark mx-2" onClick={handleCopy}>Copy to Clipboard</button>
-            <button type="button" className="btn btn-dark mx-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handleclick}>Convert to Uppercase</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handleloclick}>Convert to Lowercase</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handlefield}>Clear Field</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handleicase}>Inverse Case</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handleCopy}>Copy to Clipboard</button>
+            <button disabled={text.length===0} type="button" className="btn btn-dark mx-2 my-2" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
         </div>
         <div className="container my-3">
             <h2>
                 Your Word Summary :
             </h2>
             <p>
-                {text===""?0:text.split(" ").length} <b>Words</b><br/>
+                {text.split(/\s+/).filter((elem)=>{return elem.length!==0}).length} <b>Words</b><br/>
                 {text.length} <b>Characters</b> <br/>
                 <b>Time to read : </b>{text===""?0:text.split(" ").length*0.008} <b>Minutes</b><br/>
                 <h2 className='my-3'>
